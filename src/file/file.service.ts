@@ -1,0 +1,32 @@
+import { Injectable, HttpException } from '@nestjs/common';
+import * as path from 'path';
+import * as fs from 'fs';
+import * as uuid from 'uuid';
+
+export enum FileType {
+  AUDIO = 'audio',
+  PICTURE = `images`,
+}
+
+@Injectable()
+export class FileService {
+  createFile(type: FileType, file): string {
+    try {
+      // console.log(file);
+      const fileExtension = file.originalname.split('.').pop();
+
+      const fileName = `${uuid.v4()}.${fileExtension}`;
+      const filePath = path.resolve(__dirname, '..', 'static', type);
+      if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath, { recursive: true });
+      }
+      fs.writeFileSync(path.resolve(filePath, fileName), file.buffer);
+      return type + '/' + fileName;
+    } catch (e) {
+      console.log(e);
+      throw new HttpException(e.message || 'File save error', 500);
+    }
+  }
+
+  removeFile(filename: string) {}
+}

@@ -10,6 +10,8 @@ import { Author } from '../author/author.schema';
 import { Track } from '../track/track.schema';
 interface AlbumCreateParams {
   name: string;
+  authors_id: number;
+  picturePath: string;
 }
 
 @Table({ tableName: 'albums' })

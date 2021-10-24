@@ -9,6 +9,9 @@ import { Track } from './track/track.schema';
 import { Comment } from './comment/comment.schema';
 import { Album } from './album/album.schema';
 import { Author } from './author/author.schema';
+import { FileModule } from './file/file.module';
+import { resolve } from 'path';
+import { ServeStaticModule } from '@nestjs/serve-static';
 
 @Module({
   imports: [
@@ -26,6 +29,10 @@ import { Author } from './author/author.schema';
       database: process.env.DB_BASE,
       models: [Track, Comment, Album, Author],
       autoLoadModels: true, // for auto creating tables based on model
+    }),
+    FileModule,
+    ServeStaticModule.forRoot({
+      rootPath: resolve(__dirname, 'static'),
     }),
   ],
 })

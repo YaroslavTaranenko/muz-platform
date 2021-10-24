@@ -15,7 +15,6 @@ interface TrackCreateParams {
   listens: number;
   picture: string;
   audio: string;
-  artist_id: number;
   album_id?: number;
 }
 
@@ -38,10 +37,6 @@ export class Track extends Model<Track, TrackCreateParams> {
 
   @Column({ type: DataType.STRING, allowNull: false })
   audio: string;
-
-  @ForeignKey(() => Author)
-  @Column({ type: DataType.INTEGER })
-  artist_id: number;
 
   @ForeignKey(() => Album)
   @Column({ type: DataType.INTEGER })

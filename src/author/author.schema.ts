@@ -16,7 +16,4 @@ export class Author extends Model<Author, AuthorCreateParams> {
 
   @HasMany(() => Album)
   albums: Album[];
-
-  @HasMany(() => Track)
-  tracks: Track[];
 }

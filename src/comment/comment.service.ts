@@ -11,10 +11,8 @@ export class CommentService {
     const comment = await this.commentRepo.create(dto);
     return comment;
   }
-  async getAll(trackId: number) {
-    const comments = await this.commentRepo.findAll({
-      where: { track_id: trackId },
-    });
+  async getAll() {
+    const comments = await this.commentRepo.findAll();
     return comments;
   }
   async getOne(id: number) {

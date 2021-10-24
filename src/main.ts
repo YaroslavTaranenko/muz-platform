@@ -6,8 +6,7 @@ const start = async () => {
   try {
     const port = process.env.MUZPORT || 3000;
     const app = await NestFactory.create(AppModule);
-    app.use(cors());
-
+    app.enableCors();
     await app.listen(port, () =>
       console.log(`Muz platform started at ${port}`),
     );

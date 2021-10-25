@@ -4,6 +4,8 @@ import CreateTrackDto from './dto/create-track.dto';
 import { Track } from './track.schema';
 import { FileService, FileType } from '../file/file.service';
 import { Op } from 'sequelize';
+import { Author } from '../author/author.schema';
+import { Album } from '../album/album.schema';
 
 @Injectable()
 export class TrackService {
@@ -29,7 +31,11 @@ export class TrackService {
   }
   async getAll(limit: number = 10, page: number = 1) {
     let offset = limit * page - limit;
-    const tracks = await this.trackRepo.findAndCountAll({ limit, offset });
+    const tracks = await this.trackRepo.findAndCountAll({
+      limit,
+      offset,
+      // include: [{ Album }],
+    });
     return tracks;
   }
   async update(id: number, dto: CreateTrackDto) {

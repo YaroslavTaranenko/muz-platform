@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -24,6 +25,9 @@ export class Album extends Model<Album, AlbumCreateParams> {
 
   @Column({ type: DataType.STRING, allowNull: false })
   picture: string;
+
+  @BelongsTo(() => Author)
+  author: Author;
 
   @ForeignKey(() => Author)
   @Column({ type: DataType.INTEGER, allowNull: false })

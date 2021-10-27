@@ -34,8 +34,12 @@ export class TrackService {
     const tracks = await this.trackRepo.findAndCountAll({
       limit,
       offset,
-      // include: [{ Album }],
+      include: [
+        { model: Album, attributes: ['name'] },
+        { model: Author, attributes: ['name'] },
+      ],
     });
+
     return tracks;
   }
   async update(id: number, dto: CreateTrackDto) {

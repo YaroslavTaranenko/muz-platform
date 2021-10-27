@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   Column,
   DataType,
   ForeignKey,
@@ -38,9 +39,19 @@ export class Track extends Model<Track, TrackCreateParams> {
   @Column({ type: DataType.STRING, allowNull: false })
   audio: string;
 
+  @BelongsTo(() => Album)
+  album: Album;
+
+  @BelongsTo(() => Author)
+  artist: Author;
+
   @ForeignKey(() => Album)
   @Column({ type: DataType.INTEGER })
   album_id: number;
+
+  @ForeignKey(() => Author)
+  @Column({ type: DataType.INTEGER })
+  artist_id: number;
 
   @HasMany(() => Comment)
   comments: Comment[];

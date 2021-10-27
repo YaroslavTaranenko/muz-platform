@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Album } from './album.schema';
 import CreateAlbumDto from './dto/create-album.dto';
 import { FileService, FileType } from '../file/file.service';
+import { Author } from '../author/author.schema';
 
 @Injectable()
 export class AlbumService {
@@ -12,7 +13,9 @@ export class AlbumService {
   ) {}
 
   async getAll() {
-    const albums = await this.albumRepo.findAll();
+    const albums = await this.albumRepo.findAll({
+      include: [{ model: Author, attributes: ['name'] }],
+    });
     return albums;
   }
 
